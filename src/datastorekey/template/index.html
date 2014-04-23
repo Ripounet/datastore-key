@@ -1,0 +1,49 @@
+{{define "index"}}
+<html>
+<head>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+<h1>Datastore keys</h1>
+<div class="row">
+	<div class="col-md-5">
+		<form action="/encode" role="form">
+		 	<div class="form-group">
+				<label for="kind">Kind</label>
+				<input type="text" class="form-control" placeholder="e.g. Contact" name="kind" value="{{.kind}}"/>
+			</div>
+		 	<div class="form-group">
+				<label for="intid">Int Id</label>
+				<input type="text" class="form-control" placeholder="" name="intid" value="{{.intid}}"/>
+			</div>
+		 	<div class="form-group">
+				<label for="stringid">String Id (Name)</label>
+				<input type="text" class="form-control" placeholder="" name="stringid" value="{{.stringid}}"/>
+			</div>
+		 	<div class="form-group">
+				<label for="appid">App ID</label>
+				<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
+			</div>
+		 	<div class="form-group">
+				<label for="namespace">Namespace</label>
+				<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
+			</div>
+			<button type="submit" value="Set parent" disabled="disabled" />
+			<input type="submit" value="Encode" />
+		</form>
+	</div>
+	<div class="col-md-2">
+	</div>
+	<div class="col-md-5">
+		<form action="/decode">
+			<label for="keystring">Key encoded string</label>
+			<input type="textarea" class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring" value="{{.keystring}}" />
+			<input type="submit" value="Decode" />
+		</form>
+	</div>
+</div>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+{{end}}
