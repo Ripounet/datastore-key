@@ -30,12 +30,15 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 
 // See https://developers.google.com/appengine/docs/go/datastore/entities#Go_Kinds_and_identifiers
 func encodeKey(c appengine.Context, namespace string, kind string, stringID string, intID int64) (string, error) {
-	c, err := appengine.Namespace(c, namespace)
+	// Function Context.Namespace does not seem to work??
+	//c.Debugf("Current context is %v \n", c)
+	cc, err := appengine.Namespace(c, namespace)
 	if err != nil {
 		return "", err
 	}
+	//c.Debugf("Tempo context is %v \n", cc)
 	key := datastore.NewKey(
-		c,        // appengine.Context.
+		cc,        // appengine.Context.
 		kind,     // Kind.
 		stringID, // String ID; empty means no string ID.
 		intID,        // Integer ID; if 0, generate automatically. Ignored if string ID specified.

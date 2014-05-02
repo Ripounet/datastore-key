@@ -45,7 +45,7 @@ func recursiveJsonResponse(key *datastore.Key) string{
 		"intID": key.IntID(),
 		"kind": key.Kind(),
 		"appID": key.AppID(),
-//		"namespace": key.AppNamespace(),
+		"namespace": key.Namespace(),
 		"parent": parentJson,
 	}.String()
 }

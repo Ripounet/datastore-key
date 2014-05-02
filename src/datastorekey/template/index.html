@@ -29,7 +29,7 @@
 				<label for="namespace">Namespace</label>
 				<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
 			</div>
-			<button type="submit" value="Set parent" disabled="disabled" />
+			<button type="submit" value="Set parent" disabled="disabled"></button>
 			<input type="submit" value="Encode" />
 		</form>
 	</div>
@@ -38,7 +38,7 @@
 	<div class="col-md-5">
 		<form action="/decode">
 			<label for="keystring">Key encoded string</label>
-			<input type="textarea" class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring" value="{{.keystring}}" />
+			<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
 			<input type="submit" value="Decode" />
 		</form>
 	</div>
