@@ -29,8 +29,9 @@
 				<label for="namespace">Namespace</label>
 				<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
 			</div>
-			<button type="submit" value="Set parent" disabled="disabled"></button>
+			<button type="submit" disabled="disabled">Set parent</button>
 			<input type="submit" value="Encode" />
+			<div>Encoding is currently not working properly due to APIs handling of current Context, Namespace, AppID.</div>
 		</form>
 	</div>
 	<div class="col-md-2">
@@ -42,6 +43,7 @@
 			<input type="submit" value="Decode" />
 		</form>
 	</div>
+</div>
 </div>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>

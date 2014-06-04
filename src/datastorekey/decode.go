@@ -23,22 +23,26 @@ func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := recursiveJsonResponse(key) 
+	response := recursiveJsonString(key) 
 	fmt.Fprint(w, response)
 }
 
 func jsonifyKey(key *datastore.Key) (s string) {
-	b, err := json.Marshal(key)
+	b, err := json.MarshalIndent(key, "", "  ")
 	if err != nil {
 		return ""
 	}
 	return string(b)
 }
 
-func recursiveJsonResponse(key *datastore.Key) string{
-	parentJson := ""
+func recursiveJsonString(key *datastore.Key) string{
+	return recursiveJson(key).String() 
+}
+
+func recursiveJson(key *datastore.Key) Response{
+	var parentJson Response
 	if key.Parent() != nil {
-		parentJson = recursiveJsonResponse(key.Parent())
+		parentJson = recursiveJson(key.Parent())
 	}
 	return Response{
 		"stringID": key.StringID(),
@@ -47,14 +51,14 @@ func recursiveJsonResponse(key *datastore.Key) string{
 		"appID": key.AppID(),
 		"namespace": key.Namespace(),
 		"parent": parentJson,
-	}.String()
+	}
 }
 
 // See http://nesv.blogspot.fr/2012/09/super-easy-json-http-responses-in-go.html
 type Response map[string]interface{}
 
 func (r Response) String() (s string) {
-	b, err := json.Marshal(r)
+	b, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		s = ""
 		return
@@ -63,3 +67,24 @@ func (r Response) String() (s string) {
 	return
 }
 
+
+
+// Copied-pasted from appengine/datastore/key.go :
+//func DecodeKey(encoded string) (*Key, error) {
+//	// Re-add padding.
+//	if m := len(encoded) % 4; m != 0 {
+//		encoded += strings.Repeat("=", 4-m)
+//	}
+//
+//	b, err := base64.URLEncoding.DecodeString(encoded)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	ref := new(pb.Reference)
+//	if err := proto.Unmarshal(b, ref); err != nil {
+//		return nil, err
+//	}
+//
+//	return protoToKey(ref)
+//}
