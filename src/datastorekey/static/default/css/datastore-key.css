@@ -1,0 +1,12 @@
+.hidden {
+	display: none;
+}
+
+fieldset{
+	border-width: 1px;
+	border-style: solid; 
+    border-color: #DDD;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-bottom: 4px;
+}

@@ -1,51 +1,118 @@
 {{define "index"}}
 <html>
 <head>
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="/static/css/datastore-key.css">
 </head>
 <body>
 <div class="container">
 <h1>Datastore keys</h1>
 <div class="row">
 	<div class="col-md-5">
-		<form action="/encode" role="form">
-		 	<div class="form-group">
-				<label for="kind">Kind</label>
-				<input type="text" class="form-control" placeholder="e.g. Contact" name="kind" value="{{.kind}}"/>
-			</div>
-		 	<div class="form-group">
-				<label for="intid">Int Id</label>
-				<input type="text" class="form-control" placeholder="" name="intid" value="{{.intid}}"/>
-			</div>
-		 	<div class="form-group">
-				<label for="stringid">String Id (Name)</label>
-				<input type="text" class="form-control" placeholder="" name="stringid" value="{{.stringid}}"/>
-			</div>
-		 	<div class="form-group">
-				<label for="appid">App ID</label>
-				<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
-			</div>
-		 	<div class="form-group">
-				<label for="namespace">Namespace</label>
-				<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
-			</div>
-			<button type="submit" disabled="disabled">Set parent</button>
-			<input type="submit" value="Encode" />
-			<div>Encoding is currently not working properly due to APIs handling of current Context, Namespace, AppID.</div>
+		<form action="/encode" role="form" class="form-encode">
+			<fieldset>
+			 	<div class="form-group">
+					<label for="kind">Kind</label>
+					<input type="text" class="form-control" placeholder="e.g. Contact" name="kind" value="{{.kind}}"/>
+				</div>
+			 	<div class="form-group">
+					<label for="intid">Int Id</label>
+					<input type="text" class="form-control" placeholder="" name="intid" value="{{.intid}}"/>
+					0 is equivalent to empty Int Id
+				</div>
+			 	<div class="form-group">
+					<label for="stringid">String Id (Name)</label>
+					<input type="text" class="form-control" placeholder="" name="stringid" value="{{.stringid}}"/>
+				</div>
+			 	<div class="form-group">
+					<label for="appid">App ID</label>
+					<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
+					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. e~datastore-key
+				</div>
+			 	<div class="form-group">
+					<label for="namespace">Namespace</label>
+					<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
+				</div>
+			 	<div class="form-group">
+					<a id="set-parent" class="btn btn-primary btn-xs" href="#">Set parent</a>
+				</div>
+				<div class="row key-parent hidden">
+					<div class="col-md-2">
+						<label>Parent:</label>
+					</div>
+					<div class="col-md-10">
+						<fieldset>
+						 	<div class="form-group">
+								<label for="kind">Kind</label>
+								<input type="text" class="form-control" name="kind2" value="{{.kind}}"/>
+							</div>
+						 	<div class="form-group">
+								<label for="intid">Int Id</label>
+								<input type="text" class="form-control" placeholder="" name="intid2" value="{{.intid}}"/>
+							</div>
+						 	<div class="form-group">
+								<label for="stringid">String Id (Name)</label>
+								<input type="text" class="form-control" placeholder="" name="stringid2" value="{{.stringid}}"/>
+							</div>
+							<div class="row key-grand-parent hidden">
+								<div class="col-md-3">
+									<label>Grand-parent:</label>
+								</div>
+								<div class="col-md-9">
+									<fieldset>
+									 	<div class="form-group">
+											<label for="kind">Kind</label>
+											<input type="text" class="form-control" name="kind3" value="{{.kind}}"/>
+										</div>
+									 	<div class="form-group">
+											<label for="intid">Int Id</label>
+											<input type="text" class="form-control" placeholder="" name="intid3" value="{{.intid}}"/>
+										</div>
+									 	<div class="form-group">
+											<label for="stringid">String Id (Name)</label>
+											<input type="text" class="form-control" placeholder="" name="stringid3" value="{{.stringid}}"/>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+			 				<div class="form-group">
+								<a id="set-grand-parent" class="btn btn-primary btn-xs" href="#">Set grandparent</a>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</fieldset>
+			<!-- <input type="submit" value="Encode" /> -->
+			<input type="button" value="Encode >>" id="ajax-encode" />
 		</form>
 	</div>
 	<div class="col-md-2">
 	</div>
 	<div class="col-md-5">
-		<form action="/decode">
+		<form action="/decode" class="form-decode">
 			<label for="keystring">Key encoded string</label>
 			<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
-			<input type="submit" value="Decode" />
+			<!-- <input type="submit" value="Decode" /> -->
+			<input type="button" value="<< Decode" id="ajax-decode" />
 		</form>
 	</div>
 </div>
 </div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
+<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="/static/js/datastore-key.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40444778-3', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 </html>
 {{end}}
