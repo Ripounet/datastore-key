@@ -4,7 +4,6 @@ $(function() {
 		$.getJSON("/encode",
 				$(".form-encode").serialize(),
 				function(response, status) {
-			alert(status);
 					var box = $(".form-decode textarea[name=keystring]");
 					box.val( response.keystring );
 					box.focus();
@@ -16,7 +15,6 @@ $(function() {
 		$.getJSON("/decode",
 				$(".form-decode").serialize(),
 				function(response, status) {
-			alert(status);
 					$(".form-encode").find("input[type=text], textarea").val("");  // Clear all values
 			
 					$(".form-encode input[name=kind]").val( response.kind );
