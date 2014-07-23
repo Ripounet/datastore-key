@@ -11,9 +11,6 @@ func init() {
 	http.HandleFunc("/decode", ajaxDecode)
 }
 
-func decode(w http.ResponseWriter, r *http.Request) {
-}
-
 func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 	keyString := r.FormValue("keystring")
 	key, err := datastore.DecodeKey(keyString)

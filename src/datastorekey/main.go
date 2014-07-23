@@ -15,6 +15,15 @@ func init() {
 	http.HandleFunc("/", index)
 }
 
+func index(w http.ResponseWriter, r *http.Request) {
+	data := extractGetParameters(r)
+	render(w, data)
+}
+
+func render(w http.ResponseWriter, data Parameters) {
+	templates.ExecuteTemplate(w, "index", data)
+}
+
 func extractGetParameters(r *http.Request) Parameters{
 	data := Parameters{
 		"kind": r.FormValue("kind"),
@@ -33,20 +42,15 @@ func extractGetParameters(r *http.Request) Parameters{
 	return data
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
-	data := extractGetParameters(r)
-	render(w, data)
-}
-
-
 func decodeAndJump(w http.ResponseWriter, r *http.Request) {
-	data := extractGetParameters(r)
-	data["jumpToDatastoreViewer"] = true
-	render(w, data)
-}
-
-func render(w http.ResponseWriter, data Parameters) {
-	templates.ExecuteTemplate(w, "index", data)
+	keystring := r.FormValue("keystring")
+	key, err := datastore.DecodeKey(keyString)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID() + "&show_options=yes&viewby=gql&query=SELECT+*+FROM+"+key.Kind()+"+WHERE+__key__%3DKEY%28%27"+keystring+"%27%29&options=Run+Query"
+	http.Redirect(w, r, url, 301)
 }
 
 type Parameters map[string]interface{}
