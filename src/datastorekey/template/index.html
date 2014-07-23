@@ -3,12 +3,14 @@
 <head>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/css/datastore-key.css">
 </head>
 <body>
 <div class="container">
 <h1>Datastore keys</h1>
 <div class="row">
+
 	<div class="col-md-5">
 		<form action="/encode" role="form" class="form-encode">
 			<fieldset>
@@ -27,7 +29,10 @@
 				</div>
 			 	<div class="form-group">
 					<label for="appid">App ID</label>
-					<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
+						<span class="input-group-addon"><a href="javascript:void(0)" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
+					</div>
 					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. e~datastore-key
 				</div>
 			 	<div class="form-group">
@@ -35,9 +40,9 @@
 					<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
 				</div>
 			 	<div class="form-group">
-					<a id="set-parent" class="btn btn-primary btn-xs" href="#">Set parent</a>
+					<a id="set-parent" class="btn btn-primary btn-xs" href="javascript:void(0)">Set parent</a>
 				</div>
-				<div class="row key-parent hidden">
+				<div class="row key-parent {{if not .kind2}}hidden{{end}}">
 					<div class="col-md-2">
 						<label>Parent:</label>
 					</div>
@@ -45,17 +50,17 @@
 						<fieldset>
 						 	<div class="form-group">
 								<label for="kind">Kind</label>
-								<input type="text" class="form-control" name="kind2" value="{{.kind}}"/>
+								<input type="text" class="form-control" name="kind2" value="{{.kind2}}"/>
 							</div>
 						 	<div class="form-group">
 								<label for="intid">Int Id</label>
-								<input type="text" class="form-control" placeholder="" name="intid2" value="{{.intid}}"/>
+								<input type="text" class="form-control" placeholder="" name="intid2" value="{{.intid2}}"/>
 							</div>
 						 	<div class="form-group">
 								<label for="stringid">String Id (Name)</label>
-								<input type="text" class="form-control" placeholder="" name="stringid2" value="{{.stringid}}"/>
+								<input type="text" class="form-control" placeholder="" name="stringid2" value="{{.stringid2}}"/>
 							</div>
-							<div class="row key-grand-parent hidden">
+							<div class="row key-grand-parent {{if not .kind3}}hidden{{end}}">
 								<div class="col-md-3">
 									<label>Grand-parent:</label>
 								</div>
@@ -63,47 +68,87 @@
 									<fieldset>
 									 	<div class="form-group">
 											<label for="kind">Kind</label>
-											<input type="text" class="form-control" name="kind3" value="{{.kind}}"/>
+											<input type="text" class="form-control" name="kind3" value="{{.kind3}}"/>
 										</div>
 									 	<div class="form-group">
 											<label for="intid">Int Id</label>
-											<input type="text" class="form-control" placeholder="" name="intid3" value="{{.intid}}"/>
+											<input type="text" class="form-control" placeholder="" name="intid3" value="{{.intid3}}"/>
 										</div>
 									 	<div class="form-group">
 											<label for="stringid">String Id (Name)</label>
-											<input type="text" class="form-control" placeholder="" name="stringid3" value="{{.stringid}}"/>
+											<input type="text" class="form-control" placeholder="" name="stringid3" value="{{.stringid3}}"/>
 										</div>
 									</fieldset>
 								</div>
 							</div>
 			 				<div class="form-group">
-								<a id="set-grand-parent" class="btn btn-primary btn-xs" href="#">Set grandparent</a>
+								<a id="set-grand-parent" class="btn btn-primary btn-xs" href="javascript:void(0)">Set grandparent</a>
 							</div>
 						</fieldset>
 					</div>
 				</div>
 			</fieldset>
 			<!-- <input type="submit" value="Encode" /> -->
-			<input type="button" value="Encode >>" id="ajax-encode" />
+			<button type="button" id="ajax-encode" data-loading-text="Encode <i class='fa fa-spinner fa-spin'></i>">Encode &gt;&gt;</button>
 		</form>
 	</div>
+	
+	
 	<div class="col-md-2">
 	</div>
+	
+	
 	<div class="col-md-5">
 		<form action="/decode" class="form-decode">
 			<label for="keystring">Key encoded string</label>
 			<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
 			<!-- <input type="submit" value="Decode" /> -->
-			<input type="button" value="<< Decode" id="ajax-decode" />
+			<button type="button" id="ajax-decode"   data-loading-text="<i class='fa fa-spinner fa-spin'></i> Decode">&lt;&lt; Decode</button>
 		</form>
+		
+		
+		<div class="more">
+			<a href="javascript:void(0)" id="btn-more">More</a>
+			<div id="more-content" class="collapse">
+				<ul>
+					<li><a href="javascript:void(0)" id="open-in-datastore-viewer">Open this entity in the Datastore Viewer</a></li>
+					<li><a href="javascript:void(0)" id="link-for-bookmark">Create a bookmarkable URL of this page with current values</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="about">
+			<a href="javascript:void(0)" id="btn-about">About</a>
+			<div id="about-content" class="collapse">
+				<ul>
+					<li><a href="https://github.com/Ripounet/datastore-key">Source</a></li>
+					<li>Made with
+						<ul>
+							<li><a href="http://golang.org/">Go</a></li>
+							<li><a href="https://developers.google.com/appengine/">App Engine</a></li>
+							<li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+							<li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
+	
 </div>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="/static/js/datastore-key.js"></script>
-
+{{if .jumpToDatastoreViewer}}
+<script>
+	$(function() {
+		// First decode the key, then open in datastore viewer 
+		$.fn.ajaxDecode( $.fn.openInDatastoreViewer );
+	});
+</script>
+{{end}}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
