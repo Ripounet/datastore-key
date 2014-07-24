@@ -19,7 +19,7 @@ func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := recursiveJsonString(key) 
+	response := recursiveJsonString(key)
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(w, response)
 }
@@ -32,22 +32,22 @@ func jsonifyKey(key *datastore.Key) (s string) {
 	return string(b)
 }
 
-func recursiveJsonString(key *datastore.Key) string{
-	return recursiveJson(key).String() 
+func recursiveJsonString(key *datastore.Key) string {
+	return recursiveJson(key).String()
 }
 
-func recursiveJson(key *datastore.Key) Response{
+func recursiveJson(key *datastore.Key) Response {
 	var parentJson Response
 	if key.Parent() != nil {
 		parentJson = recursiveJson(key.Parent())
 	}
 	return Response{
-		"stringID": key.StringID(),
-		"intID": key.IntID(),
-		"kind": key.Kind(),
-		"appID": key.AppID(),
+		"stringID":  key.StringID(),
+		"intID":     key.IntID(),
+		"kind":      key.Kind(),
+		"appID":     key.AppID(),
 		"namespace": key.Namespace(),
-		"parent": parentJson,
+		"parent":    parentJson,
 	}
 }
 
