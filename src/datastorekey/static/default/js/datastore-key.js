@@ -119,7 +119,7 @@
 	
 	$(".form-encode input[name=appid]").change(function(){
 		var appid = $(this).val();
-		var url = "#";
+		var url = "javascript:void(0);";
 		if( appid ){
 			var pos = appid.indexOf("~"); 
 			if( pos != -1 )
@@ -164,6 +164,15 @@
 	    	url += "keystring=" + encodeURIComponent(keystring);
 	    window.location = url;
 	});
+	
+	$("#link-engine-this").click(function() {
+		window.external.AddSearchProvider( "/static/xml/opensearch-this.xml" );
+	});
+	
+	$("#link-engine-ds-viewer").click(function() {
+		window.external.AddSearchProvider( "/static/xml/opensearch-jump-to-datastore-viewer.xml" );
+	});
+	
 	
 	$("#btn-about").click(function() {
 		$("#about-content").collapse('toggle');

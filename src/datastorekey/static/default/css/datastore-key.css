@@ -11,6 +11,10 @@ fieldset{
     margin-bottom: 4px;
 }
 
+.form-group {
+	margin-bottom: 8px;
+}
+
 .more {
 	margin-top: 40px;
 }

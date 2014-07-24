@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/css/datastore-key.css">
+	<link rel="SHORTCUT ICON" href="/static/img/favicon_keyring.png" />
+	<link rel="search" type="application/opensearchdescription+xml" title="Datastore Key" href="/static/xml/opensearch-this.xml">
 </head>
 <body>
 <div class="container">
@@ -31,16 +33,16 @@
 					<label for="appid">App ID</label>
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
-						<span class="input-group-addon"><a href="javascript:void(0)" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
+						<span class="input-group-addon"><a href="javascript:void(0);" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
 					</div>
-					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. e~datastore-key
+					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. s~datastore-key
 				</div>
 			 	<div class="form-group">
 					<label for="namespace">Namespace</label>
 					<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
 				</div>
 			 	<div class="form-group">
-					<a id="set-parent" class="btn btn-primary btn-xs" href="javascript:void(0)">Set parent</a>
+					<a id="set-parent" class="btn btn-primary btn-xs" href="javascript:void(0);">Set parent</a>
 				</div>
 				<div class="row key-parent {{if not .kind2}}hidden{{end}}">
 					<div class="col-md-2">
@@ -82,7 +84,7 @@
 								</div>
 							</div>
 			 				<div class="form-group">
-								<a id="set-grand-parent" class="btn btn-primary btn-xs" href="javascript:void(0)">Set grandparent</a>
+								<a id="set-grand-parent" class="btn btn-primary btn-xs" href="javascript:void(0);">Set grandparent</a>
 							</div>
 						</fieldset>
 					</div>
@@ -108,17 +110,19 @@
 		
 		
 		<div class="more">
-			<a href="javascript:void(0)" id="btn-more">More</a>
+			<a href="javascript:void(0);" id="btn-more">More</a>
 			<div id="more-content" class="collapse">
 				<ul>
-					<li><a href="javascript:void(0)" id="open-in-datastore-viewer">Open this entity in the Datastore Viewer</a></li>
-					<li><a href="javascript:void(0)" id="link-for-bookmark">Create a bookmarkable URL of this page with current values</a></li>
+					<li><a href="javascript:void(0);" id="open-in-datastore-viewer">Open this entity in the Datastore Viewer</a></li>
+					<li><a href="javascript:void(0);" id="link-for-bookmark">Create a bookmarkable URL of this page with current values</a></li>
+					<li><a href="javascript:void(0);" id="link-engine-this">Add a search engine to this page</a></li>
+					<li><a href="javascript:void(0);" id="link-engine-ds-viewer">Add a search engine to the Datastore Viewer</a></li>
 				</ul>
 			</div>
 		</div>
 		
 		<div class="about">
-			<a href="javascript:void(0)" id="btn-about">About</a>
+			<a href="javascript:void(0);" id="btn-about">About</a>
 			<div id="about-content" class="collapse">
 				<ul>
 					<li><a href="https://github.com/Ripounet/datastore-key">Source</a></li>
@@ -141,14 +145,6 @@
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="/static/js/datastore-key.js"></script>
-{{if .jumpToDatastoreViewer}}
-<script>
-	$(function() {
-		// First decode the key, then open in datastore viewer 
-		$.fn.ajaxDecode( $.fn.openInDatastoreViewer );
-	});
-</script>
-{{end}}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
