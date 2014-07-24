@@ -166,11 +166,11 @@
 	});
 	
 	$("#link-engine-this").click(function() {
-		window.external.AddSearchProvider( "/static/xml/opensearch-this.xml" );
+		window.external.AddSearchProvider( "http://datastore-key.appspot.com/static/xml/opensearch-this.xml" );
 	});
 	
 	$("#link-engine-ds-viewer").click(function() {
-		window.external.AddSearchProvider( "/static/xml/opensearch-jump-to-datastore-viewer.xml" );
+		window.external.AddSearchProvider( "http://datastore-key.appspot.com/static/xml/opensearch-jump-to-datastore-viewer.xml" );
 	});
 	
 	

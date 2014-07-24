@@ -4,14 +4,11 @@ runtime: go
 api_version: go1
 
 handlers:
+- url: /static/xml
+  static_dir: static/default/xml
+  mime_type: application/xml
 - url: /static
   static_dir: static/default
   expiration: "1h"
-- url: /cachable_.*_
-  static_dir: static/default
-  expiration: "364d"
-- url: /admin.*
-  script: _go_app
-  login: admin
 - url: /.*
   script: _go_app
