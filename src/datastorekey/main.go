@@ -60,6 +60,11 @@ func autodecode(keystring string, data Parameters) error {
 	if err != nil {
 		return err
 	}
+	fillFields(key, data)
+	return nil
+}
+
+func fillFields(key *datastore.Key, data map[string]interface{}) {
 	data["kind"] = key.Kind()
 	data["stringid"] = key.StringID()
 	data["intid"] = key.IntID()
@@ -75,7 +80,6 @@ func autodecode(keystring string, data Parameters) error {
 			data["intid3"] = key.Parent().Parent().IntID()
 		}
 	}
-	return nil
 }
 
 func decodeAndJump(w http.ResponseWriter, r *http.Request) {
@@ -86,7 +90,15 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID() + "&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind() + "+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29&options=Run+Query"
-	http.Redirect(w, r, url, 301)
+	data := Response{
+	    "keystring": keystring,
+		"url": url,
+	}
+	fillFields(key, data)
+	templates.ExecuteTemplate(w, "jump", data)
+
+	// This very direct redirect caused a long blank screen because Google Console is so slow.
+	//http.Redirect(w, r, url, 301)
 }
 
 type Parameters map[string]interface{}

@@ -18,6 +18,18 @@
 		<form action="/encode" role="form" class="form-encode">
 			<fieldset>
 			 	<div class="form-group">
+					<label for="appid">App Id</label>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
+						<span class="input-group-addon"><a href="javascript:void(0);" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
+					</div>
+					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. s~datastore-key
+				</div>
+			 	<div class="form-group">
+					<label for="namespace">Namespace</label>
+					<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
+				</div>
+			 	<div class="form-group">
 					<label for="kind">Kind</label>
 					<input type="text" class="form-control" placeholder="e.g. Contact" name="kind" value="{{.kind}}"/>
 				</div>
@@ -29,18 +41,6 @@
 			 	<div class="form-group">
 					<label for="stringid">String Id (Name)</label>
 					<input type="text" class="form-control" placeholder="" name="stringid" value="{{.stringid}}"/>
-				</div>
-			 	<div class="form-group">
-					<label for="appid">App ID</label>
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
-						<span class="input-group-addon"><a href="javascript:void(0);" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
-					</div>
-					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. s~datastore-key
-				</div>
-			 	<div class="form-group">
-					<label for="namespace">Namespace</label>
-					<input type="text" class="form-control" placeholder="" name="namespace" value="{{.namespace}}"/>
 				</div>
 			 	<div class="form-group">
 					<a id="set-parent" class="btn btn-primary btn-xs" href="javascript:void(0);">Set parent</a>
