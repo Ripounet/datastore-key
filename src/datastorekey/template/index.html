@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-<h1>Datastore keys</h1>
+<h1>Google Datastore key conversion</h1>
 <div class="row">
 
 	<div class="col-md-5">
@@ -23,7 +23,7 @@
 						<input type="text" class="form-control" placeholder="" name="appid" value="{{.appid}}"/>
 						<span class="input-group-addon"><a href="javascript:void(0);" id="appspot-link" target="_blank" title="Open app"><i class="glyphicon glyphicon-globe"></i></a></span>
 					</div>
-					<i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. s~datastore-key
+					<p class="help-block"><i class="glyphicon glyphicon-warning-sign"></i> you may need a fully qualified app id, e.g. s~datastore-key</p>
 				</div>
 			 	<div class="form-group">
 					<label for="namespace">Namespace</label>
@@ -36,7 +36,7 @@
 			 	<div class="form-group">
 					<label for="intid">Int Id</label>
 					<input type="text" class="form-control" placeholder="" name="intid" value="{{.intid}}"/>
-					0 is equivalent to empty Int Id
+					<p class="help-block">0 is equivalent to empty Int Id</p>
 				</div>
 			 	<div class="form-group">
 					<label for="stringid">String Id (Name)</label>
@@ -114,10 +114,10 @@
 			<h4 id="btn-more">More</h4>
 			<div id="more-content" class="collapse">
 				<ul>
-					<li><a href="javascript:void(0);" id="open-in-datastore-viewer">Open this entity in the Datastore Viewer</a></li>
-					<li><a href="javascript:void(0);" id="link-for-bookmark">Create a bookmarkable URL of this page with current values</a></li>
-					<li><a href="#" id="link-engine-this">Add a search engine to this page</a></li>
-					<li><a href="#" id="link-engine-ds-viewer">Add a search engine to the Datastore Viewer</a></li>
+					<li><a href="javascript:void(0);" id="open-in-datastore-viewer" class="btn btn-default"><img src="/static/img/favicon_appengine.png"/> Open this entity in the Datastore Viewer</a></li>
+					<li><button id="link-for-bookmark" class="btn btn-default"><i class='fa fa-bookmark'></i> Bookmarkable URL with current values</button></li>
+					<li><a href="#" id="link-engine-this" class="btn btn-success"><i class='fa fa-circle fa-2x'><img src="/static/img/favicon_keyring.png" class="engine-icon-in-circle" /></i> Add a search engine to this page</a></li>
+					<li><a href="#" id="link-engine-ds-viewer" class="btn btn-success"><i class='fa fa-circle fa-2x'><img src="/static/img/favicon_appengine.png" class="engine-icon-in-circle" /></i> Add a search engine to the Datastore Viewer</a></li>
 				</ul>
 			</div>
 		</div>
@@ -126,13 +126,14 @@
 			<h4 id="btn-about">About</h4>
 			<div id="about-content" class="collapse">
 				<ul>
-					<li><a href="https://github.com/Ripounet/datastore-key">Source</a></li>
+					<li><a href="https://github.com/Ripounet/datastore-key" class="btn btn-default"><i class="fa fa-github fa-lg"></i>&nbsp;&nbsp; Source</a></li>
 					<li>Made with
-						<ul>
-							<li><a href="http://golang.org/">Go</a></li>
-							<li><a href="https://developers.google.com/appengine/">App Engine</a></li>
-							<li><a href="http://getbootstrap.com/">Bootstrap</a></li>
-							<li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
+						<ul class="inline">
+							<li><a href="http://golang.org/" class="btn btn-primary"><img src="/static/img/favicon_golang.ico" /> Go</a></li>
+							<li><a href="https://developers.google.com/appengine/" class="btn btn-primary"><i class='fa fa-square fa-lg'><img src="/static/img/favicon_appengine.png" class="icon-in-small-circle" /></i> App Engine</a></li>
+							<li><a href="http://getbootstrap.com/" class="btn btn-primary"><img src="/static/img/favicon_bootstrap.ico" width="16px" /> Bootstrap</a></li>
+							<li><a href="http://jquery.com/" class="btn btn-primary"><i class='fa fa-square fa-lg'><img src="/static/img/favicon_jquery.ico" class="icon-in-small-circle" /></i> jQuery</a></li>
+							<li><a href="http://fortawesome.github.io/Font-Awesome/" class="btn btn-primary"><img src="/static/img/favicon_font-awesome.ico" /> Font Awesome</a></li>
 						</ul>
 					</li>
 				</ul>

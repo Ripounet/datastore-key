@@ -15,10 +15,35 @@ fieldset{
 	margin-bottom: 8px;
 }
 
+.more ul,.about ul
+{
+    list-style-type: none;
+    padding-left: 15px;
+}
+.more .btn, .about .btn {
+    margin: 2px;
+}
+
 .more {
 	margin-top: 40px;
 }
 
 .about {
 	margin-top: 20px;
+}
+
+ul.inline > li {
+    display: inline-block;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.engine-icon-in-circle {	
+	margin-left: -20px;
+	margin-top: -20px;
+}
+
+.icon-in-small-circle {	
+	margin-left: -16px;
+	margin-top: -14px;
 }
