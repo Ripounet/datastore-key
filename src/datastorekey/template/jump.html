@@ -2,13 +2,14 @@
 <html>
 <head>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/css/datastore-key.css">
 	<link rel="SHORTCUT ICON" href="/static/img/favicon_keyring.png" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Datastore Viewer" href="/static/xml/opensearch-jump-to-datastore-viewer.xml">
 	<meta http-equiv="refresh" content="0; url={{.url}}" />
 </head>
 <body>
 <div class="container">
-<h4><a href="/">Google Datastore key</a></h4>
+<h4><a href="/"><img src="/static/img/favicon_keyring.png"/> Google Datastore key</a></h4>
 <h2>You are being redirected to the <a href="{{.url}}">Datastore Viewer</a>, please wait</h2>
 <div class="row">
 
@@ -16,7 +17,9 @@
 		<dl>
 			<dt>Key string</dt>
 			<dd>{{.keystring}}</dd>
+		</dl>
 			
+		<dl>
 			<dt>App Id</dt>
 			<dd>{{.appid}}</dd>
 			<dt>Namespace</dt>
