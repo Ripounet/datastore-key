@@ -8,6 +8,7 @@ h1 {
 	background-image: url(/static/img/keyring-logo.png);
 	background-repeat: no-repeat;
 	padding-left: 42px;
+	margin-bottom: 30px;
 }
 
 fieldset{
