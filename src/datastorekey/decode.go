@@ -12,7 +12,7 @@ func init() {
 }
 
 func ajaxDecode(w http.ResponseWriter, r *http.Request) {
-	keyString := r.FormValue("keystring")
+	keyString := trimmedFormValue(r, "keystring")
 	key, err := datastore.DecodeKey(keyString)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

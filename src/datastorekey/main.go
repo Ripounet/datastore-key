@@ -4,6 +4,7 @@ import (
 	"appengine/datastore"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 var templates *template.Template
@@ -28,18 +29,18 @@ func render(w http.ResponseWriter, data Parameters) {
 
 func extractGetParameters(r *http.Request) Parameters {
 	data := Parameters{
-		"kind":      r.FormValue("kind"),
-		"stringid":  r.FormValue("stringid"),
-		"intid":     r.FormValue("intid"),
-		"appid":     r.FormValue("appid"),
-		"namespace": r.FormValue("namespace"),
-		"keystring": r.FormValue("keystring"),
-		"kind2":     r.FormValue("kind2"),
-		"stringid2": r.FormValue("stringid2"),
-		"intid2":    r.FormValue("intid2"),
-		"kind3":     r.FormValue("kind3"),
-		"stringid3": r.FormValue("stringid3"),
-		"intid3":    r.FormValue("intid3"),
+		"kind":      trimmedFormValue(r, "kind"),
+		"stringid":  trimmedFormValue(r, "stringid"),
+		"intid":     trimmedFormValue(r, "intid"),
+		"appid":     trimmedFormValue(r, "appid"),
+		"namespace": trimmedFormValue(r, "namespace"),
+		"keystring": trimmedFormValue(r, "keystring"),
+		"kind2":     trimmedFormValue(r, "kind2"),
+		"stringid2": trimmedFormValue(r, "stringid2"),
+		"intid2":    trimmedFormValue(r, "intid2"),
+		"kind3":     trimmedFormValue(r, "kind3"),
+		"stringid3": trimmedFormValue(r, "stringid3"),
+		"intid3":    trimmedFormValue(r, "intid3"),
 	}
 	return data
 }
@@ -83,7 +84,7 @@ func fillFields(key *datastore.Key, data map[string]interface{}) {
 }
 
 func decodeAndJump(w http.ResponseWriter, r *http.Request) {
-	keystring := r.FormValue("keystring")
+	keystring := trimmedFormValue(r, "keystring")
 	key, err := datastore.DecodeKey(keystring)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -102,3 +103,7 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 }
 
 type Parameters map[string]interface{}
+
+func trimmedFormValue(r *http.Request,paramName string) string{
+	return strings.TrimSpace(r.FormValue(paramName))
+}

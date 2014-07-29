@@ -16,21 +16,21 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
 	var err error
 
-	kind := r.FormValue("kind")
-	stringID := r.FormValue("stringid")
-	intIDstr := r.FormValue("intid")
-	appID := r.FormValue("appid")
-	namespace := r.FormValue("namespace")
+	kind := trimmedFormValue(r, "kind")
+	stringID := trimmedFormValue(r, "stringid")
+	intIDstr := trimmedFormValue(r, "intid")
+	appID := trimmedFormValue(r, "appid")
+	namespace := trimmedFormValue(r, "namespace")
 
 	// Parent (optional)
-	kind2 := r.FormValue("kind2")
-	stringID2 := r.FormValue("stringid2")
-	intIDstr2 := r.FormValue("intid2")
+	kind2 := trimmedFormValue(r, "kind2")
+	stringID2 := trimmedFormValue(r, "stringid2")
+	intIDstr2 := trimmedFormValue(r, "intid2")
 
 	// Grand-parent (optional)
-	kind3 := r.FormValue("kind3")
-	stringID3 := r.FormValue("stringid3")
-	intIDstr3 := r.FormValue("intid3")
+	kind3 := trimmedFormValue(r, "kind3")
+	stringID3 := trimmedFormValue(r, "stringid3")
+	intIDstr3 := trimmedFormValue(r, "intid3")
 
 	var key, parent, grandparent *datastore.Key
 
