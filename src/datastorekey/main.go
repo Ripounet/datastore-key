@@ -87,7 +87,8 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 	keystring := trimmedFormValue(r, "keystring")
 	key, err := datastore.DecodeKey(keystring)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		w.WriteHeader(400)
+		templates.ExecuteTemplate(w, "error-bad-keystring", keystring)
 		return
 	}
 	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID() + "&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind() + "+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29&options=Run+Query"
