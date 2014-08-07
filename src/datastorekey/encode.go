@@ -36,20 +36,20 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 
 	if kind2 != "" {
 		if kind3 != "" {
-			grandparent, err = createKey(c, appID, namespace, kind3, stringID3, intID64(intIDstr3), nil)
+			grandparent, err = CreateKey(c, appID, namespace, kind3, stringID3, intID64(intIDstr3), nil)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
 			}
 		}
-		parent, err = createKey(c, appID, namespace, kind2, stringID2, intID64(intIDstr2), grandparent)
+		parent, err = CreateKey(c, appID, namespace, kind2, stringID2, intID64(intIDstr2), grandparent)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 	}
 
-	key, err = createKey(c, appID, namespace, kind, stringID, intID64(intIDstr), parent)
+	key, err = CreateKey(c, appID, namespace, kind, stringID, intID64(intIDstr), parent)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -62,10 +62,10 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 }
 
 // See https://developers.google.com/appengine/docs/go/datastore/entities#Go_Kinds_and_identifiers
-func createKey(c appengine.Context, appID string, namespace string, kind string, stringID string, intID int64, parent *datastore.Key) (*datastore.Key, error) {
+func CreateKey(c appengine.Context, appID string, namespace string, kind string, stringID string, intID int64, parent *datastore.Key) (*datastore.Key, error) {
 	// c is the true context of the current request
 	// forged is a wrapper context with our custom appID
-	forged := &forgedContext{c, appID}
+	forged := &ForgedContext{c, appID}
 	// cc is a wrapper context with our custom namespace
 	cc, err := appengine.Namespace(forged, namespace)
 	if err != nil {
