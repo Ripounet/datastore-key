@@ -21,6 +21,7 @@ func main() {
 	} else {
 		fmt.Fprintln(os.Stderr, "Failure")
 		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 }
 
