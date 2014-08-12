@@ -91,8 +91,10 @@
 					</div>
 				</div>
 			</fieldset>
-			<!-- <input type="submit" value="Encode" /> -->
-			<button type="button" id="ajax-encode" data-loading-text="Encode <i class='fa fa-spinner fa-spin'></i>">Encode &gt;&gt;</button>
+			<div class="form-group text-right" >
+				<!-- <input type="submit" value="Encode" /> -->
+				<button type="button" id="ajax-encode" class="btn btn-success btn-lg" data-loading-text="Encode <i class='fa fa-spinner fa-spin'></i>">Encode &gt;&gt;</button>
+			</div>
 		</form>
 	</div>
 	
@@ -103,10 +105,14 @@
 	
 	<div class="col-md-5">
 		<form action="/decode" class="form-decode">
-			<label for="keystring">Key encoded string</label>
-			<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
-			<!-- <input type="submit" value="Decode" /> -->
-			<button type="button" id="ajax-decode"   data-loading-text="<i class='fa fa-spinner fa-spin'></i> Decode">&lt;&lt; Decode</button>
+			<div class="form-group" >
+				<label for="keystring">Key encoded string</label>
+				<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
+			</div>
+			<div class="form-group" >
+				<!-- <input type="submit" value="Decode" /> -->
+				<button type="button" id="ajax-decode" class="btn btn-success btn-lg" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Decode">&lt;&lt; Decode</button>
+			</div>
 		</form>
 		
 		
