@@ -24,7 +24,7 @@ fieldset{
 	margin-bottom: 8px;
 }
 
-.more h4, .about h4 {
+#btn-more, #btn-about {
 	cursor: pointer;
 }
 
