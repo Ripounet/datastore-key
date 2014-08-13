@@ -1,4 +1,8 @@
-package aquiet
+// This is a desperate attempt to discard the log message
+// "appengine: not running under devappserver2; using some default configuration".
+// It does not really work, as the order of initialization
+// between this package and appengine/datastore is unspecified.
+package quiet
 
 import (
 	"io/ioutil"
@@ -6,7 +10,5 @@ import (
 )
 
 func init() {
-	log.Println("a")
 	log.SetOutput(ioutil.Discard)
-	log.Println("b")
 }
