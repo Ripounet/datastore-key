@@ -66,3 +66,12 @@ dd {
 .footer {
 	margin-top: 50px;
 }
+.footer a{
+	color: #777; 
+}
+.footer a:visited{
+	color: #777; 
+}
+.footer a:hover{
+	color: #55C; 
+}
