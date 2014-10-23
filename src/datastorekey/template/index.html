@@ -105,16 +105,17 @@
 	
 	<div class="col-md-5">
 		<form action="/decode" class="form-decode">
-			<div class="form-group" >
-				<label for="keystring">Key encoded string</label>
-				<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
-			</div>
+			<fieldset>
+				<div class="form-group" >
+					<label for="keystring">Key encoded string</label>
+					<textarea class="form-control" rows="4" placeholder="Paste encoded key string" name="keystring">{{.keystring}}</textarea>
+				</div>
+			</fieldset>
 			<div class="form-group" >
 				<!-- <input type="submit" value="Decode" /> -->
 				<button type="button" id="ajax-decode" class="btn btn-success btn-lg" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Decode">&lt;&lt; Decode</button>
 			</div>
 		</form>
-		
 		
 		<div class="more bs-callout bs-callout-info">
 			<h4 id="btn-more">More</h4>
