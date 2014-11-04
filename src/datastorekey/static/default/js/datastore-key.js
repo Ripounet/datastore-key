@@ -18,6 +18,7 @@
 					box.focus();
 					$("#ajax-encode").button('reset');
 					$(".form-decode").effect("highlight", 1200);
+					$(".form-decode fieldset").effect("highlight", 1200);
 			},
 			error: function(msg) {
 			      alert( "Encoding went wrong : [" + err.responseText + "]" );
@@ -74,6 +75,7 @@
 		$.fn.ajaxDecode( function(){
 		    $("#ajax-decode").button('reset');
 			$(".form-encode").effect("highlight", 1200);
+			$(".form-encode fieldset").effect("highlight", 1200);
 		});
 	});
 

@@ -18,6 +18,18 @@ fieldset{
     padding-left: 4px;
     padding-right: 4px;
     margin-bottom: 4px;
+    background-color: #faffff;
+}
+
+label {
+	color: #79A;
+}
+
+input.form-control {
+	font-weight: bolder;
+}
+textarea.form-control {
+	font-weight: bolder;
 }
 
 .form-group {
