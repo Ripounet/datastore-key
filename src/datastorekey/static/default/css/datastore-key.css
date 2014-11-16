@@ -22,7 +22,8 @@ fieldset{
 }
 
 label {
-	color: #79A;
+	color: #8AB;
+	font-size: large;
 }
 
 input.form-control {
