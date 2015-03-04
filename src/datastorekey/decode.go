@@ -20,6 +20,7 @@ func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := recursiveJsonString(key)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(w, response)
 }

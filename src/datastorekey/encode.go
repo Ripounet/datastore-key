@@ -55,6 +55,7 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//fmt.Fprint(w, keyString)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(w, Response{
 		"keystring": key.Encode(),
