@@ -12,6 +12,8 @@ func init() {
 }
 
 func ajaxDecode(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	
 	keyString := trimmedFormValue(r, "keystring")
 	key, err := datastore.DecodeKey(keyString)
 	if err != nil {
@@ -20,7 +22,6 @@ func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := recursiveJsonString(key)
-	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(w, response)
 }
