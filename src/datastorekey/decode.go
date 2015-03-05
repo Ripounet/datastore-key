@@ -53,7 +53,7 @@ func recursiveJson(key *datastore.Key) Response {
 	}
 }
 
-// See http://nesv.blogspot.fr/2012/09/super-easy-json-http-responses-in-go.html
+//  See http://nesv.blogspot.fr/2012/09/super-easy-json-http-responses-in-go.html
 type Response map[string]interface{}
 
 func (r Response) String() (s string) {
@@ -65,3 +65,4 @@ func (r Response) String() (s string) {
 	s = string(b)
 	return
 }
+
