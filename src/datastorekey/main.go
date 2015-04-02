@@ -94,11 +94,11 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 		templates.ExecuteTemplate(w, "error-bad-keystring", keystring)
 		return
 	}
-	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID()
-	+"&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind()
-	+"+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29"
-	+"&namespace=" + key.Namespace()
-	+"&options=Run+Query"
+	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID() +
+		"&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind() +
+		"+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29" +
+		"&namespace=" + key.Namespace() +
+		"&options=Run+Query"
 	data := Response{
 		"keystring": keystring,
 		"url":       url,
