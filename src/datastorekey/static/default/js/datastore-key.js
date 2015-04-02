@@ -141,8 +141,13 @@
 	    if( key ){
 	    	var kind = $(".form-encode input[name=kind]").val();
 	    	var appid = $(".form-encode input[name=appid]").val();
+	    	var namespace = $(".form-encode input[name=namespace]").val();
 	    	if( appid && kind ){
-	    		var url= "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + appid + "&show_options=yes&viewby=gql&query=SELECT+*+FROM+"+kind+"+WHERE+__key__%3DKEY%28%27"+key+"%27%29&options=Run+Query" ;
+	    		var url= "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + appid 
+	    			+ "&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + kind 
+	    			+ "+WHERE+__key__%3DKEY%28%27"+ key + "%27%29"
+	    			+ "&namespace=" + namespace
+	    			+ "&options=Run+Query" ;
 	    		window.open( url, "datastoreViewer" );
 	    	}else{
 	    		alert("Please click the Decode button first, to retrieve the App ID.")

@@ -94,10 +94,14 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 		templates.ExecuteTemplate(w, "error-bad-keystring", keystring)
 		return
 	}
-	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID() + "&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind() + "+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29&options=Run+Query"
+	url := "https://appengine.google.com/datastore/explorer?submitted=1&app_id=" + key.AppID()
+	+"&show_options=yes&viewby=gql&query=SELECT+*+FROM+" + key.Kind()
+	+"+WHERE+__key__%3DKEY%28%27" + keystring + "%27%29"
+	+"&namespace=" + key.Namespace()
+	+"&options=Run+Query"
 	data := Response{
-	    "keystring": keystring,
-		"url": url,
+		"keystring": keystring,
+		"url":       url,
 	}
 	fillFields(key, data)
 	templates.ExecuteTemplate(w, "jump", data)
@@ -108,6 +112,6 @@ func decodeAndJump(w http.ResponseWriter, r *http.Request) {
 
 type Parameters map[string]interface{}
 
-func trimmedFormValue(r *http.Request,paramName string) string{
+func trimmedFormValue(r *http.Request, paramName string) string {
 	return strings.TrimSpace(r.FormValue(paramName))
 }
