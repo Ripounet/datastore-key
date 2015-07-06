@@ -4,10 +4,12 @@
 package datastorekey
 
 import (
-	"appengine/datastore"
 	"html/template"
 	"net/http"
 	"strings"
+
+	"appengine"
+	"appengine/datastore"
 )
 
 var templates *template.Template
@@ -20,9 +22,20 @@ func init() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
 	data := extractGetParameters(r)
-	_ = autodecode(data["keystring"].(string), data)
-	// If autodecode failed, render the page with key not decoded
+
+	keyString := data["keystring"].(string)
+	if keyString != "" {
+		c.Infof("Decoding %v\n", keyString)
+		err := autodecode(keyString, data)
+		if err == nil {
+			c.Infof("Decoded %v\n", data)
+		} else {
+			c.Errorf("Failed: %v\n", err.Error())
+			// If autodecode failed, render the page with key not decoded
+		}
+	}
 	render(w, data)
 }
 
@@ -49,17 +62,17 @@ func extractGetParameters(r *http.Request) Parameters {
 }
 
 // IF keystring was given as GET parameter
-// THEN it would be nice that all decoded values are directly served in the html
+// THEN it is nice that all decoded values are directly served in the html
 func autodecode(keystring string, data Parameters) error {
 	if keystring == "" {
 		// Nothing to decode
 		return nil
 	}
-	//b := true
 	if data["appid"] != "" || data["kind"] != "" || data["intid"] != "" || data["stringid"] != "" {
 		// Don't overwrite user-provided values
 		return nil
 	}
+
 	key, err := datastore.DecodeKey(keystring)
 	if err != nil {
 		return err
