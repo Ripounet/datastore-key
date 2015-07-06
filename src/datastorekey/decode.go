@@ -1,10 +1,12 @@
 package datastorekey
 
 import (
-	"appengine/datastore"
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"appengine"
+	"appengine/datastore"
 )
 
 func init() {
@@ -13,15 +15,20 @@ func init() {
 
 func ajaxDecode(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	
+
 	keyString := trimmedFormValue(r, "keystring")
+	c := appengine.NewContext(r)
+	c.Infof("Decoding %v\n", keyString)
+
 	key, err := datastore.DecodeKey(keyString)
 	if err != nil {
+		c.Errorf("Failed: %v\n", err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	response := recursiveJsonString(key)
+	c.Infof("%v\n", response)
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(w, response)
 }
@@ -65,4 +72,3 @@ func (r Response) String() (s string) {
 	s = string(b)
 	return
 }
-

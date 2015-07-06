@@ -1,11 +1,12 @@
 package datastorekey
 
 import (
-	"appengine"
-	"appengine/datastore"
 	"fmt"
 	"net/http"
 	"strconv"
+
+	"appengine"
+	"appengine/datastore"
 )
 
 func init() {
@@ -14,7 +15,7 @@ func init() {
 
 func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	
+
 	c := appengine.NewContext(r)
 	var err error
 
@@ -33,6 +34,13 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 	kind3 := trimmedFormValue(r, "kind3")
 	stringID3 := trimmedFormValue(r, "stringid3")
 	intIDstr3 := trimmedFormValue(r, "intid3")
+
+	c.Infof("Encoding %v\n", []string{
+		appID, namespace,
+		kind, stringID, intIDstr,
+		kind2, stringID2, intIDstr2,
+		kind3, stringID3, intIDstr3,
+	})
 
 	var key, parent, grandparent *datastore.Key
 
@@ -53,14 +61,17 @@ func ajaxEncode(w http.ResponseWriter, r *http.Request) {
 
 	key, err = CreateKey(c, appID, namespace, kind, stringID, intID64(intIDstr), parent)
 	if err != nil {
+		c.Errorf("Failed: %v\n", err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	//fmt.Fprint(w, keyString)
 	w.Header().Set("Content-Type", "application/json")
+	keyString := key.Encode()
 	fmt.Fprint(w, Response{
-		"keystring": key.Encode(),
+		"keystring": keyString,
 	})
+	c.Infof("Encoded %v\n", keyString)
 }
 
 // See https://developers.google.com/appengine/docs/go/datastore/entities#Go_Kinds_and_identifiers
