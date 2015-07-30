@@ -19,6 +19,7 @@
 					$("#ajax-encode").button('reset');
 					$(".form-decode").effect("highlight", 1200);
 					$(".form-decode fieldset").effect("highlight", 1200);
+					window.history.pushState('', '', '/?keystring=' + response.keystring);
 			},
 			error: function(msg) {
 			      alert( "Encoding went wrong : [" + err.responseText + "]" );
@@ -76,6 +77,7 @@
 		    $("#ajax-decode").button('reset');
 			$(".form-encode").effect("highlight", 1200);
 			$(".form-encode fieldset").effect("highlight", 1200);
+			window.history.pushState('', '', '/?keystring=' + $(".form-decode textarea[name=keystring]").val());
 		});
 	});
 
